@@ -20,9 +20,8 @@
 int main(void)
 {
 	int		sock_fd;
-	int		n;
-	char	sendline[100];
-	char	recline[100];
+	char	sendline[1000];
+	char	recline[1000];
 	struct	sockaddr_in	servaddr;
 
 	sock_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -33,11 +32,11 @@ int main(void)
 	connect(sock_fd, (struct sockaddr*)&servaddr, sizeof(servaddr));
 	while(1)
 	{
-		bzero(sendline, 100);
-		bzero(recline, 100);
-		fgets(sendline, 100, stdin);
+		bzero(sendline, 1000);
+		bzero(recline, 1000);
+		fgets(sendline, 1000, stdin);
 		write(sock_fd, sendline, strlen(sendline) + 1);
-		read(sock_fd, recline, 100);
-		printf("%s", recline);
+		read(sock_fd, recline, 1000);
+		write(1, recline, strlen(recline) + 1);
 	}
 }
